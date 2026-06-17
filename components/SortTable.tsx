@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react"
 import { ChevronDown, ChevronUp } from "lucide-react"
 import { LoadingSpinner } from "@/components/LoadingSpinner"
+import { TruncatedText } from "@/components/TruncatedText"
 
 export type SortDirection = "asc" | "desc"
 
@@ -132,11 +133,7 @@ export function SortTable<T extends { [key: string]: any }>({
 
     if (column.truncate) {
       const text = value == null ? "" : String(value)
-      return (
-        <span className="block truncate" title={text || undefined}>
-          {text}
-        </span>
-      )
+      return <TruncatedText text={text} />
     }
 
     return value

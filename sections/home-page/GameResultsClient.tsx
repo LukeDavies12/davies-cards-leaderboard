@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import { SortTable, type Column, type SortDirection } from '@/components/SortTable';
+import { TruncatedText } from '@/components/TruncatedText';
 import { formatGameDateMmDdYy } from '@/helpers/dateFormatters';
 import { useSession } from '@/sections/shared/SessionProvider';
 import { EditGameButton } from './EditGameButton';
@@ -40,23 +41,19 @@ export default function GameResultsClient({
       {
         key: 'date',
         label: 'Date',
-        width: '92px',
+        width: '100px',
         truncate: true,
         render: (value) => {
           if (!value || !(value instanceof Date)) return '';
           const text = formatGameDateMmDdYy(value.toISOString());
-          return (
-            <span className="block truncate whitespace-nowrap tabular-nums" title={text}>
-              {text}
-            </span>
-          );
+          return <TruncatedText text={text} className="whitespace-nowrap tabular-nums" />;
         },
       },
-      { key: 'location_name', label: 'Location', width: '100px', truncate: true },
+      { key: 'location_name', label: 'Location', width: '120px', truncate: true },
       {
         key: 'message',
         label: 'Message',
-        width: '120px',
+        width: '80px',
         truncate: true,
       },
       { key: 'players_count', label: 'Plrs', align: 'right', width: '44px' },
