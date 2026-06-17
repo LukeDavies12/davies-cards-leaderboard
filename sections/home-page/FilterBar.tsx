@@ -92,39 +92,47 @@ export default function FilterBar({
     filters.minGamesPlayed !== '';
 
   return (
-    <div className="md:flex md:justify-between items-end gap-4">
-      <div className="flex items-end gap-3">
-        <div className="w-32 flex-1 sm:flex-none">
-          <BaseInput
-            type="date"
-            label="Earliest"
-            value={filters.start || ''}
-            onChange={(e) => update({ start: e.target.value })}
-          />
+    <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end">
+        <div className="grid grid-cols-2 gap-3 sm:contents">
+          <div className="min-w-0 sm:w-36">
+            <BaseInput
+              type="date"
+              label="Earliest"
+              value={filters.start || ''}
+              onChange={(e) => update({ start: e.target.value })}
+            />
+          </div>
+          <div className="min-w-0 sm:w-36">
+            <BaseInput
+              type="date"
+              label="Latest"
+              value={filters.end || ''}
+              onChange={(e) => update({ end: e.target.value })}
+            />
+          </div>
         </div>
-        <div className="w-32 flex-1 sm:flex-none">
-          <BaseInput
-            type="date"
-            label="Latest"
-            value={filters.end || ''}
-            onChange={(e) => update({ end: e.target.value })}
-          />
+        <div className="flex min-w-0 items-end gap-3">
+          <div className="min-w-0 flex-1 sm:w-36 sm:flex-none">
+            <BaseInput
+              type="number"
+              label="Player min games"
+              min={0}
+              placeholder="ex. 5"
+              value={filters.minGamesPlayed || ''}
+              onChange={(e) => update({ minGamesPlayed: e.target.value })}
+            />
+          </div>
+          <SecondaryButton
+            onClick={onClear}
+            disabled={!hasActiveFilters}
+            className="shrink-0 self-end"
+          >
+            Clear
+          </SecondaryButton>
         </div>
-        <div className="w-32 flex-1 sm:flex-none">
-          <BaseInput
-            type="number"
-            label="Player min games"
-            min={0}
-            placeholder="ex. 5"
-            value={filters.minGamesPlayed || ''}
-            onChange={(e) => update({ minGamesPlayed: e.target.value })}
-          />
-        </div>
-        <SecondaryButton onClick={onClear} disabled={!hasActiveFilters}>
-          Clear
-        </SecondaryButton>
       </div>
-      <div className="flex items-end gap-3">
+      <div className="flex items-end">
         <GameDateDisplay />
       </div>
     </div>

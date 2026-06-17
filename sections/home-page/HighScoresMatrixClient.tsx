@@ -84,7 +84,7 @@ export default function HighScoresMatrixClient({
   return (
     <div className="mx-auto w-full max-w-7xl py-4">
       <h2 className="mb-2 font-bold">High Scores by # of Players</h2>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid max-h-[min(24rem,55vh)] grid-cols-1 gap-4 overflow-y-auto sm:max-h-none sm:overflow-visible sm:grid-cols-2 lg:grid-cols-4">
         {Array.from(byPlayerCount).map(([n, groups]) => (
           <section key={n} className="flex min-w-0 flex-col gap-2">
             <h3>

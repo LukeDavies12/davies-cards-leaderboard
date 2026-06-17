@@ -13,6 +13,7 @@ export interface Column<T> {
   align?: "left" | "right"
   width?: string
   hideHeader?: boolean
+  truncate?: boolean
   render?: (value: T[keyof T], row: T) => React.ReactNode
 }
 
@@ -23,6 +24,7 @@ interface SortTableProps<T extends { [key: string]: any }> {
   sortDirection: SortDirection
   onSort: (key: keyof T) => void
   maxHeight?: string
+  minWidth?: string
   getRowKey: (row: T) => string | number
   getRowClassName?: (row: T) => string | undefined
   offsetRows?: number
@@ -37,6 +39,7 @@ export function SortTable<T extends { [key: string]: any }>({
   sortDirection,
   onSort,
   maxHeight = "280px",
+  minWidth,
   getRowKey,
   getRowClassName,
   offsetRows,
@@ -110,13 +113,33 @@ export function SortTable<T extends { [key: string]: any }>({
     const isLast = index === columns.length - 1
     const alignClass = align === "right" ? "text-right" : "text-left"
     const padClass = isFirst
-      ? "pl-0 pr-3"
+      ? "pl-0 pr-2"
       : isLast
         ? align === "right"
-          ? "pl-3 pr-6"
-          : "pl-3 pr-4"
-        : "px-3"
-    return `py-1 ${padClass} ${alignClass}`
+          ? "pl-2 pr-4"
+          : "pl-2 pr-3"
+        : "px-2"
+    const truncateClass = column.truncate ? "max-w-0 overflow-hidden" : ""
+    return `py-1 ${padClass} ${alignClass} ${truncateClass}`.trim()
+  }
+
+  const renderCellContent = (column: Column<T>, row: T) => {
+    const value = row[column.key as string]
+
+    if (column.render) {
+      return column.render(value, row)
+    }
+
+    if (column.truncate) {
+      const text = value == null ? "" : String(value)
+      return (
+        <span className="block truncate" title={text || undefined}>
+          {text}
+        </span>
+      )
+    }
+
+    return value
   }
 
   return (
@@ -126,7 +149,18 @@ export function SortTable<T extends { [key: string]: any }>({
         className="overflow-x-auto overflow-y-auto [scrollbar-gutter:stable]"
         style={{ maxHeight }}
       >
-        <table className="w-full table-fixed">
+        <table
+          className="w-full table-fixed"
+          style={minWidth ? { minWidth } : undefined}
+        >
+        <colgroup>
+          {columns.map((column, index) => (
+            <col
+              key={column.id ?? `${String(column.key)}-${index}`}
+              style={column.width ? { width: column.width } : undefined}
+            />
+          ))}
+        </colgroup>
         <thead className="sticky top-0 bg-white z-10 shadow-[0_1px_0_0_rgba(0,0,0,0.04)]">
           <tr className="text-left text-xs text-neutral-500 border-b border-neutral-200">
             {columns.map((column, index) => (
@@ -157,15 +191,14 @@ export function SortTable<T extends { [key: string]: any }>({
                   key={column.id ?? `${String(column.key)}-${index}`}
                   className={cellClassName(column, index)}
                   style={{
+                    width: column.width,
                     color:
                       column.align === "right"
                         ? "rgb(55, 65, 81)"
                         : "inherit",
                   }}
                 >
-                  {column.render
-                    ? column.render(row[column.key as string], row)
-                    : row[column.key as string]}
+                  {renderCellContent(column, row)}
                 </td>
               ))}
             </tr>

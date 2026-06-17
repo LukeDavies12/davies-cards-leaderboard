@@ -40,37 +40,31 @@ export default function GameResultsClient({
       {
         key: 'date',
         label: 'Date',
-        width: '100px',
+        width: '72px',
         render: (value) => {
           if (!value || !(value instanceof Date)) return '';
           return formatGameDateMmDdYy(value.toISOString());
         },
       },
-      { key: 'location_name', label: 'Location', width: '160px' },
+      { key: 'location_name', label: 'Location', width: '96px', truncate: true },
       {
         key: 'message',
         label: 'Message',
-        render: (value) => {
-          const text = value == null ? '' : String(value);
-          return (
-            <span className="block truncate" title={text || undefined}>
-              {text}
-            </span>
-          );
-        },
+        width: '120px',
+        truncate: true,
       },
-      { key: 'players_count', label: 'Players', align: 'right', width: '70px' },
-      { key: 'winning_player_name', label: 'Winner', width: '160px' },
-      { key: 'winning_score', label: 'Score', align: 'right', width: '70px' },
+      { key: 'players_count', label: 'Plrs', align: 'right', width: '44px' },
+      { key: 'winning_player_name', label: 'Winner', width: '88px', truncate: true },
+      { key: 'winning_score', label: 'Score', align: 'right', width: '56px' },
       {
         id: 'actions',
         key: 'id',
         label: '',
         align: 'right',
-        width: session ? '140px' : '72px',
+        width: session ? '168px' : '64px',
         hideHeader: true,
         render: (_, row) => (
-          <div className="flex items-center justify-end gap-2">
+          <div className="flex items-center justify-end gap-3 sm:gap-2 whitespace-nowrap text-xs">
             <GameScoresInfo gameId={row.id} />
             {session ? (
               <>
@@ -111,6 +105,7 @@ export default function GameResultsClient({
             setSort(key);
           }}
           maxHeight="400px"
+          minWidth={session ? '41rem' : '34rem'}
           getRowKey={(r) => r.id}
           offsetRows={rawRows.length}
           onLoadMore={onLoadMore}
