@@ -19,7 +19,7 @@ export default function BaseInput({
   const classes = className ? `${inputClassName} ${className}` : inputClassName;
 
   return label ? (
-    <label className="flex min-w-0 max-w-full flex-col gap-1 overflow-hidden">
+    <label className="flex min-w-0 max-w-full flex-col gap-1">
       <span className={labelClass}>{label}</span>
       <input className={classes} {...props} />
     </label>
