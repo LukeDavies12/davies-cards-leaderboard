@@ -9,11 +9,15 @@ export default function Modal({
   onClose,
   children,
   className,
+  variant = 'dark',
+  size = 'default',
 }: {
   open: boolean;
   onClose: () => void;
   children: React.ReactNode;
   className?: string;
+  variant?: 'dark' | 'light';
+  size?: 'default' | 'lg';
 }) {
   const panelRef = useRef<HTMLDivElement>(null);
 
@@ -36,7 +40,15 @@ export default function Modal({
         ref={panelRef}
         role="dialog"
         aria-modal="true"
-        className={`relative min-w-52 max-w-[min(20rem,calc(100vw-2rem))] rounded-md bg-black p-3 text-white ${className ?? ''}`}
+        className={`relative rounded-md p-4 ${
+          size === 'lg'
+            ? 'min-w-[min(32rem,calc(100vw-2rem))] max-w-[min(42rem,calc(100vw-2rem))]'
+            : 'min-w-52 max-w-[min(20rem,calc(100vw-2rem))]'
+        } ${
+          variant === 'light'
+            ? 'border border-neutral-200 bg-white text-neutral-900 shadow-lg'
+            : 'bg-black text-white'
+        } ${className ?? ''}`}
       >
         {children}
       </div>

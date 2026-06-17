@@ -10,6 +10,7 @@ import {
   toLeaderboardParams,
   type PageFilters,
 } from '@/helpers/persistedFilters';
+import { useRefresh } from '@/sections/shared/RefreshProvider';
 import type { LeaderboardRow } from './LeaderboardClient';
 import LeaderboardClient from './LeaderboardClient';
 import type { HighScoreRow } from './HighScoresMatrixClient';
@@ -33,6 +34,7 @@ function HomePageContent({
   const [gameResultsLoading, setGameResultsLoading] = useState(false);
   const [gameResultsHasMore, setGameResultsHasMore] = useState(true);
   const requestId = useRef(0);
+  const { register } = useRefresh();
   const fetchData = useCallback(async (activeFilters: PageFilters) => {
     const id = ++requestId.current;
     const dateParams = toHighScoresParams(activeFilters);
@@ -67,6 +69,11 @@ function HomePageContent({
   useEffect(() => {
     fetchData(filters);
   }, [filters, fetchData]);
+
+  useEffect(() => {
+    return register(() => fetchData(filters));
+  }, [register, fetchData, filters]);
+
   return (
     <div className="px-3 lg:px-4">
       <FilterBar filters={filters} onChange={onFilterChange} onClear={onClearFilters} />

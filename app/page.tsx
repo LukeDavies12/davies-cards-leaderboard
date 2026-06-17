@@ -1,12 +1,10 @@
-import HomePageClient from "@/sections/home-page/HomePageClient";
-import Header from "@/sections/shared/Header";
-import SessionProvider from "@/sections/shared/SessionProvider";
+import AppShell from '@/sections/shared/AppShell';
+import HomePageClient from '@/sections/home-page/HomePageClient';
 
 export default function Page() {
   return (
-    <SessionProvider>
-      <Header />
+    <AppShell>
       <HomePageClient />
-    </SessionProvider>
+    </AppShell>
   );
 }

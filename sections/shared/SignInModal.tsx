@@ -43,12 +43,12 @@ export default function SignInModal({
   };
 
   return (
-    <Modal open={open} onClose={handleClose} className="min-w-64">
+    <Modal open={open} onClose={handleClose} className="min-w-64" variant="light">
       <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
         <h2 className="text-sm font-medium">Sign In</h2>
         <BaseInput
           label="Username"
-          labelClass="text-xs text-neutral-400"
+          labelClass="text-xs text-neutral-500"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           autoComplete="username"
@@ -56,14 +56,14 @@ export default function SignInModal({
         />
         <BaseInput
           label="Password"
-          labelClass="text-xs text-neutral-400"
+          labelClass="text-xs text-neutral-500"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           autoComplete="current-password"
           required
         />
-        {error && <p className="text-xs text-red-400">{error}</p>}
+        {error && <p className="text-xs text-red-600">{error}</p>}
         <PrimaryButton disabled={submitting}>
           {submitting ? 'Signing in…' : 'Sign In'}
         </PrimaryButton>

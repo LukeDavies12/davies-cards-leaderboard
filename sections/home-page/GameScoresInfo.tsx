@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Loader2 } from 'lucide-react';
 import Modal from '@/components/Modal';
+import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { fetchGameDetails } from '@/sections/home-page/homepageActions';
 
 export type GameDetailRow = {
@@ -41,7 +41,7 @@ export function GameScoresInfo({ gameId }: { gameId: number }) {
       <Modal open={open} onClose={() => setOpen(false)}>
         {loading ? (
           <div className="flex justify-center py-2">
-            <Loader2 className="size-4 animate-spin text-neutral-400" aria-label="Loading" />
+            <LoadingSpinner />
           </div>
         ) : (
           <table className="w-full text-xs">

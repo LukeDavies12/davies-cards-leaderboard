@@ -2,7 +2,7 @@
 
 import type { ButtonHTMLAttributes } from 'react';
 
-interface PrimaryButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
+interface PrimaryButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> { }
 
 export default function PrimaryButton({
   className,
@@ -12,7 +12,7 @@ export default function PrimaryButton({
   return (
     <button
       type={type}
-      className={`rounded-sm cursor-pointer bg-neutral-50 px-2 py-1 text-xs text-red-700 transition-colors hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-neutral-400 active:bg-neutral-100 disabled:bg-neutral-200 disabled:text-neutral-400 disabled:cursor-not-allowed ${className ?? ''}`}
+      className={`rounded-sm cursor-pointer bg-red-600 px-2 py-1 text-xs font-semibold text-white transition-colors hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 active:bg-red-800 disabled:bg-red-300 disabled:text-red-50 disabled:cursor-not-allowed ${className ?? ''}`}
       {...props}
     />
   );

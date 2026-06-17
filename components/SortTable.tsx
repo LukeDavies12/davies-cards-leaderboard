@@ -1,11 +1,13 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import { ChevronDown, ChevronUp, Loader2 } from "lucide-react"
+import { ChevronDown, ChevronUp } from "lucide-react"
+import { LoadingSpinner } from "@/components/LoadingSpinner"
 
 export type SortDirection = "asc" | "desc"
 
 export interface Column<T> {
+  id?: string
   key: keyof T
   label: string
   align?: "left" | "right"
@@ -22,6 +24,7 @@ interface SortTableProps<T extends { [key: string]: any }> {
   onSort: (key: keyof T) => void
   maxHeight?: string
   getRowKey: (row: T) => string | number
+  getRowClassName?: (row: T) => string | undefined
   offsetRows?: number
   onLoadMore?: (offsetRows: number) => void
   isLoadingMore?: boolean
@@ -35,6 +38,7 @@ export function SortTable<T extends { [key: string]: any }>({
   onSort,
   maxHeight = "280px",
   getRowKey,
+  getRowClassName,
   offsetRows,
   onLoadMore,
   isLoadingMore = false,
@@ -127,7 +131,7 @@ export function SortTable<T extends { [key: string]: any }>({
           <tr className="text-left text-xs text-neutral-500 border-b border-neutral-200">
             {columns.map((column, index) => (
               <th
-                key={String(column.key)}
+                key={column.id ?? `${String(column.key)}-${index}`}
                 className={`pb-1 font-medium ${cellClassName(column, index)}`}
                 style={{ width: column.width }}
               >
@@ -141,11 +145,16 @@ export function SortTable<T extends { [key: string]: any }>({
           {sortedData.map((row) => (
             <tr
               key={getRowKey(row)}
-              className="text-sm border-b border-neutral-100"
+              className={[
+                "text-sm border-b border-neutral-100",
+                getRowClassName?.(row),
+              ]
+                .filter(Boolean)
+                .join(" ")}
             >
               {columns.map((column, index) => (
                 <td
-                  key={String(column.key)}
+                  key={column.id ?? `${String(column.key)}-${index}`}
                   className={cellClassName(column, index)}
                   style={{
                     color:
@@ -166,7 +175,7 @@ export function SortTable<T extends { [key: string]: any }>({
       </div>
       {isLoadingMore && (
         <div className="flex justify-center py-1">
-          <Loader2 className="size-4 animate-spin text-neutral-400" aria-label="Loading more" />
+          <LoadingSpinner />
         </div>
       )}
     </div>
