@@ -15,11 +15,11 @@ export type LeaderboardRow = {
 type Metric = 'win_percentage' | 'competitiveness_percentage';
 
 const COLUMNS: Column<LeaderboardRow>[] = [
-  { key: 'player_name', label: 'Player', width: '24%', truncate: true },
-  { key: 'games_played', label: 'Played', align: 'right', width: '19%' },
-  { key: 'wins', label: 'Wins', align: 'right', width: '17%' },
-  { key: 'win_percentage', label: 'Win %', align: 'right', width: '20%', render: formatPct },
-  { key: 'competitiveness_percentage', label: 'Comp. %', align: 'right', width: '20%', render: formatPct },
+  { key: 'player_name', label: 'Player', width: '84px', truncate: true },
+  { key: 'games_played', label: 'Played', align: 'right', width: '58px' },
+  { key: 'wins', label: 'Wins', align: 'right', width: '48px' },
+  { key: 'win_percentage', label: 'Win %', align: 'right', width: '62px', render: formatPct },
+  { key: 'competitiveness_percentage', label: 'Comp. %', align: 'right', width: '72px', render: formatPct },
 ];
 
 const getTopPlayers = (rows: LeaderboardRow[], metric: Metric) => {
@@ -130,6 +130,7 @@ export default function LeaderboardClient({ rows: rawRows }: { rows: Leaderboard
             setSort(key);
           }}
           maxHeight="244px"
+          minWidth="21rem"
           getRowKey={r => r.player_id}
         />
       </div>

@@ -94,8 +94,8 @@ export default function FilterBar({
   return (
     <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
       <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end">
-        <div className="flex w-full gap-4 sm:contents">
-          <div className="min-w-0 flex-1 sm:w-36 sm:flex-none">
+        <div className="flex w-full items-end sm:contents">
+          <div className="min-w-0 flex-1 overflow-hidden sm:w-36 sm:flex-none">
             <BaseInput
               type="date"
               label="Earliest"
@@ -103,7 +103,8 @@ export default function FilterBar({
               onChange={(e) => update({ start: e.target.value })}
             />
           </div>
-          <div className="min-w-0 flex-1 sm:w-36 sm:flex-none">
+          <div className="w-4 shrink-0 sm:hidden" aria-hidden="true" />
+          <div className="min-w-0 flex-1 overflow-hidden sm:w-36 sm:flex-none">
             <BaseInput
               type="date"
               label="Latest"

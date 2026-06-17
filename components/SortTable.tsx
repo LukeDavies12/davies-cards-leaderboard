@@ -92,7 +92,7 @@ export function SortTable<T extends { [key: string]: any }>({
     return (
       <button
         onClick={() => onSort(column.key)}
-        className={`flex w-full items-center gap-1 hover:text-neutral-900 transition-colors ${alignClass}`}
+        className={`flex w-full items-center gap-1 whitespace-nowrap hover:text-neutral-900 transition-colors ${alignClass}`}
       >
         {column.label}
         <span className="w-3 h-3 inline-flex items-center justify-center">
@@ -113,7 +113,7 @@ export function SortTable<T extends { [key: string]: any }>({
     const isLast = index === columns.length - 1
     const alignClass = align === "right" ? "text-right" : "text-left"
     const padClass = isFirst
-      ? "pl-0 pr-2"
+      ? "pl-0 pr-3"
       : isLast
         ? align === "right"
           ? "pl-2 pr-4"

@@ -40,13 +40,19 @@ export default function GameResultsClient({
       {
         key: 'date',
         label: 'Date',
-        width: '72px',
+        width: '92px',
+        truncate: true,
         render: (value) => {
           if (!value || !(value instanceof Date)) return '';
-          return formatGameDateMmDdYy(value.toISOString());
+          const text = formatGameDateMmDdYy(value.toISOString());
+          return (
+            <span className="block truncate whitespace-nowrap tabular-nums" title={text}>
+              {text}
+            </span>
+          );
         },
       },
-      { key: 'location_name', label: 'Location', width: '96px', truncate: true },
+      { key: 'location_name', label: 'Location', width: '100px', truncate: true },
       {
         key: 'message',
         label: 'Message',
@@ -105,7 +111,7 @@ export default function GameResultsClient({
             setSort(key);
           }}
           maxHeight="400px"
-          minWidth={session ? '41rem' : '34rem'}
+          minWidth={session ? '42rem' : '35rem'}
           getRowKey={(r) => r.id}
           offsetRows={rawRows.length}
           onLoadMore={onLoadMore}

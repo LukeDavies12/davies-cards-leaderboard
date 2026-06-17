@@ -8,7 +8,7 @@ interface BaseInputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const inputClassName =
-  'block w-full min-w-0 rounded-sm bg-neutral-50 px-2 py-1 text-sm text-neutral-700 placeholder-neutral-500 transition-colors hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-neutral-400 active:bg-neutral-100 focus:bg-neutral-100 disabled:bg-neutral-200 disabled:text-neutral-400';
+  'block w-full min-w-0 max-w-full rounded-sm bg-neutral-50 px-2 py-1 text-sm text-neutral-700 placeholder-neutral-500 transition-colors hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-neutral-400 active:bg-neutral-100 focus:bg-neutral-100 disabled:bg-neutral-200 disabled:text-neutral-400';
 
 export default function BaseInput({
   label,
@@ -19,7 +19,7 @@ export default function BaseInput({
   const classes = className ? `${inputClassName} ${className}` : inputClassName;
 
   return label ? (
-    <label className="flex flex-col gap-1">
+    <label className="flex min-w-0 max-w-full flex-col gap-1 overflow-hidden">
       <span className={labelClass}>{label}</span>
       <input className={classes} {...props} />
     </label>
