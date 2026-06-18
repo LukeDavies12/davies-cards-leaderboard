@@ -17,7 +17,19 @@ body {
   color: var(--foreground);
 }
 
-input[type='date'] {
+input[type='date'],
+input[type='number'] {
   min-width: 0;
   max-width: 100%;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

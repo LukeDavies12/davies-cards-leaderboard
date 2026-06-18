@@ -93,9 +93,9 @@ export default function FilterBar({
 
   return (
     <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-      <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end">
-        <div className="flex w-full items-end sm:contents">
-          <div className="min-w-0 flex-1 sm:w-36 sm:flex-none">
+      <div className="flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end">
+        <div className="grid w-full grid-cols-2 gap-3 sm:flex sm:w-auto">
+          <div className="min-w-0 sm:w-36">
             <BaseInput
               type="date"
               label="Earliest"
@@ -103,8 +103,7 @@ export default function FilterBar({
               onChange={(e) => update({ start: e.target.value })}
             />
           </div>
-          <div className="w-4 shrink-0 sm:hidden" aria-hidden="true" />
-          <div className="min-w-0 flex-1 sm:w-36 sm:flex-none">
+          <div className="min-w-0 sm:w-36">
             <BaseInput
               type="date"
               label="Latest"
@@ -113,12 +112,14 @@ export default function FilterBar({
             />
           </div>
         </div>
-        <div className="flex min-w-0 items-end gap-3">
+        <div className="flex w-full min-w-0 items-end gap-3 sm:w-auto">
           <div className="min-w-0 flex-1 sm:w-36 sm:flex-none">
             <BaseInput
               type="number"
+              inputMode="numeric"
               label="Player min games"
               min={0}
+              step={1}
               placeholder="ex. 5"
               value={filters.minGamesPlayed || ''}
               onChange={(e) => update({ minGamesPlayed: e.target.value })}
