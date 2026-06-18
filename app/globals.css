@@ -17,12 +17,12 @@ body {
   color: var(--foreground);
 }
 
-input[type='date'],
-input[type='number'] {
+input[type='date'] {
   box-sizing: border-box;
   width: 100%;
   min-width: 0;
   max-width: 100%;
+  overflow: hidden;
 }
 
 input[type='date']::-webkit-date-and-time-value {
@@ -30,7 +30,15 @@ input[type='date']::-webkit-date-and-time-value {
   text-align: left;
 }
 
+input[type='date']::-webkit-calendar-picker-indicator {
+  margin-left: 0;
+}
+
 input[type='number'] {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
   -moz-appearance: textfield;
   appearance: textfield;
 }
